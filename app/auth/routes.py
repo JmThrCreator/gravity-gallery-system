@@ -20,7 +20,7 @@ def login():
             return redirect(url_for("auth.login"))
         
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for("main.gallery"))
+        return redirect(url_for("main.index"))
     
     return render_template("auth/login.html", form=form)
 

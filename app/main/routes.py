@@ -1,6 +1,6 @@
 from app.main import bp
 from flask import render_template, redirect, request, url_for
-from app.utils.load import get_images, load_images
+from app.utils.load import get_images, load_images, get_image_count
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from app import db
@@ -30,7 +30,6 @@ def gallery():
 		return redirect(url_for("main.index"))
 	else:
 		path = user.path_id
-		load_images(path)
 		images = get_images(path, "small")
 		return render_template("gallery.html", images = images)
 	
@@ -39,12 +38,33 @@ def gallery():
 def profile():
 	
 	form = ImageForm()
-	print(form.file.data)
-	print(form.file)
 
-	if form.validate_on_submit():
-		filename = secure_filename(form.file.data)
-		form.image.save(os.path.join(basedir, staticdir, "upload", current_user.path_id, "raw", filename))
+	if "remove" in request.form:
+		filepath = request.form["remove"]
+		filename = os.path.basename(filepath)
+
+		user = User.query.filter_by(username=current_user.username).first()
+		path = user.path_id
+
+		if os.path.exists(os.path.join(basedir, staticdir, "upload", path, "small", filename)):
+			os.remove(os.path.join(basedir, staticdir, "upload", path, "small", filename))
+			os.remove(os.path.join(basedir, staticdir, "upload", path, "large", filename))
+			os.remove(os.path.join(basedir, staticdir, "upload", path, "raw", filename))
+		return redirect(url_for("main.profile"))
+	elif form.validate_on_submit():
+		user = current_user
+		path = user.path_id
+
+		count = get_image_count(path)
+
+		if count >= 9:
+			return redirect(url_for("main.profile"))
+
+		filename = secure_filename(form.file.data.filename)
+		form.file.data.save(os.path.join(basedir, staticdir, "upload", current_user.path_id, "raw", filename))
+
+
+		load_images(path)
 		return redirect(url_for("main.profile"))
 
 	user = User.query.filter_by(username=current_user.username).first()
@@ -52,4 +72,4 @@ def profile():
 	load_images(path)
 	images = get_images(path, "small")
 
-	return render_template("profile.html", images = images, form = form)
+	return render_template("profile.html", images = images, form=form)

@@ -20,23 +20,20 @@ def load_images(path):
         os.remove(file_path)
 
     # Load images
-    count = 0
     for filename in os.listdir(raw_path):
-        if filename.endswith(".png") or filename.endswith(".jpg"):
+        if filename.endswith((".png", ".jpg", ".jpeg", ".PNG", ".JPG", ".JPEG")):
             image_path = os.path.join(raw_path, filename)
-            resize(image_path, upload_path, "small", count)
-            resize(image_path, upload_path, "large", count)
-            count += 1
+            resize(image_path, upload_path, filename, "small")
+            resize(image_path, upload_path, filename, "large")
 
 
-def resize(image_path, upload_path, size="small", count=0):
+def resize(image_path, upload_path, filename, size="small"):
 
     # Get size
     width, height = get_new_size(image_path, size)
 
     # Create new filename
-    new_filename = f"{size}_{count}.png"
-    path = os.path.join(upload_path, size, new_filename)
+    path = os.path.join(upload_path, size, filename)
 
     # Resize image
     image = Image.open(image_path)
@@ -93,6 +90,13 @@ def get_image(image, path, size="small"):
 def get_images(path, size="small"):
     images = []
     for file in os.listdir(os.path.join(basedir, staticdir, "upload", path, size)):
-        if file.endswith(".png") or file.endswith(".jpg"):
+        if file.endswith((".png", ".jpg", ".jpeg", ".PNG", ".JPG", ".JPEG")):
             images.append(get_image(file, path, size))
     return images
+
+def get_image_count(path):
+    count = 0
+    for file in os.listdir(os.path.join(basedir, staticdir, "upload", path, "raw")):
+        if file.endswith((".png", ".jpg", ".jpeg", ".PNG", ".JPG", ".JPEG")):
+            count += 1
+    return count
