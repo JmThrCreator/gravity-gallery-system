@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block script %}
+    <script rel="javascript" type="text/javascript" src="static/js/libraries/matter.js"></script> <!-- matter.js -->
+
+    <script>
+        var imageList = {{ images|tojson }};
+    </script>
+
+    <script src="static/js/components/boundary.js"></script>
+    <script src="static/js/components/stack.js"></script>
+    <script src="static/js/components/background.js"></script>
+    <script src="static/js/components/box.js"></script>
+
+    <script rel="javascript" type="text/javascript" src="static/js/gallery.js"></script>
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="static/css/gallery.css">
+{% endblock %}
+
+{% block style %}
+<style>
+    #matter{
+        position: absolute;
+        bottom:0;
+        background-color: #343e4e;
+    }
+    .panel{
+        position: absolute;
+        top:0px;
+        right:0px;
+    }
+    .grid{
+        position:absolute;
+        right:50px;
+        top:50px;
+        display: grid;
+        row-gap: 30px;
+    }
+    i{
+        font-size: 50px;
+        color: #fff;
+    }
+    button{
+        background: transparent;
+        border: none;
+    }
+    i:hover {
+        cursor: pointer;
+        filter: brightness(0.7);
+    }
+    
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="panel">
+        <div class="grid">
+            <button><i id="add-body" class="bi bi-plus-circle"></i></button>
+            <button><i id="gravity" class="bi bi-arrow-down-circle"></i></button>
+            <button><i id="clear-bodies" class="bi bi-circle"></i></button>
+            <button><i id="reset-bodies"class="bi bi-dash-circle"></i></button>
+            <a href = "https://www.instagram.com/jmthrcreator/"><button><i id="link" class="bi bi-info-circle"></i></button></a>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block script %}
+    <script rel="javascript" type="text/javascript" src="static/js/popup.js"></script> <!-- matter.js -->
+{% endblock %}
+
+{% block style %}
+<style>
+    body{
+        font-family: 'Roboto', sans-serif;
+        color: white;
+    }
+    .grid {
+        display: grid;
+        position: absolute;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        top: 70px;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+    .container button {
+        color: white;
+        font-size:30px;
+        background-color: transparent;
+        border: none;
+        position: absolute;
+        right:10px;
+        top:10px;
+        text-shadow: 0 0 3px rgba(0,0,0,0.6);
+    }
+    .container button:hover {
+        cursor: pointer;
+        filter: brightness(0.9);
+    }
+    .container{
+        position: relative;
+        width: 100%;
+        max-width:200px;
+        display: inline-block;
+        margin: 10px;
+    }
+    .header{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        margin-top:40px;
+    }
+    .header button {
+        position:absolute;
+        background-color: transparent;
+        border: none;
+
+        color: white;
+        font-family: 'Roboto', sans-serif;
+        font-size:15px;
+    }
+    #add {
+        color: white;
+        position: absolute;
+        right:30px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #add i{
+        font-size:45px;
+    }
+    #add:hover{
+        cursor: pointer;
+        filter: brightness(0.7);
+    }
+    .popup{
+        display:none;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        border-radius:10px;
+        background-color: #242a33;
+        padding: 25px 40px 25px 25px;
+        width: 500px;
+        height: 300px;
+        text-align: center;
+        flex-direction: column;
+        justify-content: top;
+        align-items: center;
+    }
+    .sumbit{
+        font-family: 'Roboto', sans-serif;
+        color: white;
+        font-size: 16px;
+        border: none;
+        background-color: rgb(61, 165, 129);
+        border-radius: 10px;
+        padding: 10px;
+        cursor:pointer;
+    }
+    .image_upload{
+        font-family: 'Roboto', sans-serif;
+        color: white;
+        font-size: 16px;
+        background-color: transparent;
+        border: 2px solid white;
+        border-radius: 20px;
+        padding: 7px;
+    }
+    .image_upload::-webkit-file-upload-button{
+        background-color: transparent;
+        background-color: rgb(61, 165, 129);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        padding: 7px;
+        cursor:pointer;
+    }
+    #clear{
+        position: absolute;
+
+        top:15px;
+        right:15px;
+
+        font-size:30px;
+        color: white;
+        position: absolute;
+        
+        background:none;
+        border: none;
+        cursor:pointer;
+    }
+    #clear:hover{
+        filter: brightness(0.7);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<form action="{{ url_for('main.profile') }}" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="header">
+        <h1 style="position:absolute; left:30px">Profile</h1>
+        <button type=button id="add" onclick="showPopup()"><i class="bi bi-plus-circle"></i></button>
+    </div>
+    <div class="grid">
+        {% for image in images %}
+        <div class="container">    
+                <img src="{{image.path}}" width="200px"></img>
+                <button submit="false"><i class="bi bi-dash-circle"></i></button>
+        </div>
+        {% endfor %}
+    </div>
+    <div id="popup" class="popup">
+        <button type=button id="clear" onclick="clearPopup()"><i class="bi bi-x-circle"></i></button>
+        <h2>Upload Image</h2>
+        <p>{{ form.file(class="image_upload") }}</p>
+        <p>{{ form.submit(class="sumbit") }}</p>
+    </div>
+</form>
+{% endblock %}

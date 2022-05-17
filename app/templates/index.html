@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block script %}
+    <script rel="javascript" type="text/javascript" src="static/js/index.js"></script>
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="static/css/index.css">
+{% endblock %}
+
+{% block style %}
+<style>
+    body{
+        font-family: 'Roboto', sans-serif;
+        color: white;
+    }
+    .header{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        margin-top:40px;
+    }
+    .header button {
+        position:absolute;
+        background-color: transparent;
+        border: none;
+
+        color: white;
+        font-family: 'Roboto', sans-serif;
+        font-size:15px;
+    }
+    #signup_button{
+        right:30px;
+        border: white solid 2px;
+        border-radius: 10px;
+        height:45px;
+        line-height: 0px;
+        width:100px;
+    }
+    #login_button{
+        right:160px;
+    }
+    #logout{
+        right:100px;
+
+        border: white solid 2px;
+        border-radius: 10px;
+        height:45px;
+        line-height: 0px;
+        width:100px;
+    }
+    .header button:hover{
+        cursor: pointer;
+        filter: brightness(0.7);
+    }
+    #profile {
+        color: white;
+        position: absolute;
+        right:30px;
+        font-size:45px;
+    }
+    #profile:hover{
+        cursor: pointer;
+        filter: brightness(0.7);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <form action="{{ url_for('main.index') }}" method="post">
+        <div class="header">
+            <h1 style="position:absolute; left:30px">Gravity Gallery</h1>
+            {% if authenticated == False %}
+                <button id="login_button" type="submit" name="login"><h2>Log In</h2></button>
+                <button id="signup_button" type="submit" name="signup"><h2>Sign Up</h2></button>
+            {% else %}
+                <button id="logout" type="submit" name="logout"><h2>Log Out</h2></button>
+                <a id="profile" href="{{ url_for('main.profile') }}"><i class="bi bi-card-image"></i></a>
+            {% endif %}
+{% endblock %}
+

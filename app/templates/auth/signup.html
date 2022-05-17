@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+    body{
+        font-family: 'Roboto', sans-serif;
+        color: white;
+    }
+    .wrapper {
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        border-radius:10px;
+        background-color: #242a33;
+        padding: 25px 40px 25px 25px;
+        max-width: 255px;
+    }
+
+	h2 {
+        text-align:center;
+        margin-top:20px;
+        margin-bottom:20px;
+        font-weight:bold;
+    }
+
+	.string_input input {
+		height:30px;
+        width: 100%;
+	}
+
+    input {
+        color: #ffffff;
+        border-radius: 10px;
+        border: 1px solid #9396b5;
+        padding-left: 10px;
+        background-color: #14151f;
+    }
+
+    input:hover {
+        filter: brightness(90%);
+    }
+
+    input:focus {
+        outline: none;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    #signup_button{
+        position:relative;
+        top:20px;
+    }
+
+    #signup_button input {
+		height:35px;
+        position:relative;
+        color:white;
+        border-radius:10px; 
+        padding-right:40px; 
+        padding-left:40px; 
+        border:none;
+        bottom:20px;
+        background-color: rgb(61, 165, 129);
+
+        font-family: 'Roboto', sans-serif;
+        font-size:16px;
+    }
+
+    label {
+        position:relative;
+        bottom:5px;
+    }
+
+    input[type=checkbox] {
+        accent-color: rgb(61, 73, 165);
+        background-color: #14151f;
+    }
+
+    #signup_button input:hover{
+        cursor: pointer;
+    }
+
+    span{
+        position: relative;
+        top:5px;
+        color: rgb(236, 95, 73);
+        font-size:15px;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+    
+    <div class="wrapper">
+    <h2>Sign Up</h2>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div class = "string_input">
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=64) }}<br>
+            {% for error in form.email.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password2.label }}<br>
+            {{ form.password2(size=32) }}<br>
+            {% for error in form.password2.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </p>
+        </div>
+        <p id="signup_button">{{ form.submit() }}</p>
+{% endblock %}
