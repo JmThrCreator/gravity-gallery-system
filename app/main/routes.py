@@ -19,7 +19,13 @@ def index():
 			return redirect(url_for("auth.signup"))
 		elif "logout" in request.form:
 			return redirect(url_for("auth.logout"))
-	return render_template("index.html", authenticated=current_user.is_authenticated)
+		elif "search" in request.form:
+			return redirect(url_for("main.search"))
+	
+	# get all names in the database
+	usernames = [user.username for user in User.query.all()]
+
+	return render_template("index.html", authenticated=current_user.is_authenticated, usernames=usernames)
 
 @bp.route("/gallery", methods=["GET", "POST"])
 def gallery():
