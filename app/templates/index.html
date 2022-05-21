@@ -23,19 +23,12 @@
                 // only first 5 items
                 itemArray = itemArray.slice(0,5);
                 itemArray = itemArray.map((data)=>{
-                    return data = "<a href = {{ url_for('main.gallery') }} ><li>" + data + "</li></a>";
+                    return data = "<a href = {{ url_for('main.gallery', user='') }}" + data + "><li>" + data + "</li></a>";
                 });
-                if (itemArray.length > 0){
-                    searchWrapper.classList.add("active");
-                }
-                else{
-                    searchWrapper.classList.remove("active");
-                }
-                
+                if (itemArray.length > 0) searchWrapper.classList.add("active");
+                else searchWrapper.classList.remove("active");
             }
-            else {
-                searchWrapper.classList.remove("active");
-            }
+            else searchWrapper.classList.remove("active");
             showSuggestions(itemArray);
         }
 
@@ -46,7 +39,7 @@
                 listData = list.join("");
                 suggestionBox.innerHTML = listData;
             }
-            else{
+            else {
                 listData = list.join("");
                 suggestionBox.innerHTML = listData;
             }

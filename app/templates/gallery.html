@@ -1,22 +1,25 @@
 {% extends "base.html" %}
 
 {% block script %}
-    <script rel="javascript" type="text/javascript" src="static/js/libraries/matter.js"></script> <!-- matter.js -->
+    <script rel="javascript" type="text/javascript" src="{{ url_for('static', filename='js/libraries/matter.js') }}"></script> <!-- Matter.js -->
 
     <script>
         var imageList = {{ images|tojson }};
+        // fix dynamic static folder
+        var staticFolder = "{{ url_for('static', filename='') }}";
+
     </script>
 
-    <script src="static/js/components/boundary.js"></script>
-    <script src="static/js/components/stack.js"></script>
-    <script src="static/js/components/background.js"></script>
-    <script src="static/js/components/box.js"></script>
+    <script src="{{ url_for('static', filename='js/components/boundary.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/components/stack.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/components/background.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/components/box.js') }}"></script>
 
-    <script rel="javascript" type="text/javascript" src="static/js/gallery.js"></script>
+    <script rel="javascript" type="text/javascript" src="{{ url_for('static', filename='js/gallery.js') }}"></script>
 {% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="static/css/gallery.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/gallery.css') }}">
 {% endblock %}
 
 {% block style %}

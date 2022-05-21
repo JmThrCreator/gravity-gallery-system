@@ -19,8 +19,6 @@ def index():
 			return redirect(url_for("auth.signup"))
 		elif "logout" in request.form:
 			return redirect(url_for("auth.logout"))
-		elif "search" in request.form:
-			return redirect(url_for("main.search"))
 	
 	# get all names in the database
 	usernames = [user.username for user in User.query.all()]
@@ -28,17 +26,17 @@ def index():
 	return render_template("index.html", authenticated=current_user.is_authenticated, usernames=usernames)
 
 @bp.route("/gallery", methods=["GET", "POST"])
-def gallery():
-	
-	name = "jmay"
-	user = User.query.filter_by(username=name).first()
+@bp.route("/gallery/<user>", methods=["GET", "POST"])
+def gallery(user=None):
+	name = user
+	user = User.query.filter_by(username=name).first_or_404()
 	if user is None:
 		return redirect(url_for("main.index"))
 	else:
 		path = user.path_id
 		images = get_images(path, "small")
 		return render_template("gallery.html", images = images)
-	
+
 @bp.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():

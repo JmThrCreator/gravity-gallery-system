@@ -84,7 +84,7 @@ def get_size(path):
 def get_image(image, path, size="small"):
     full_path = os.path.join(basedir, staticdir, "upload", path, size, image)
     width, height = get_size(full_path)
-    static_path = os.path.join("static", "upload", path, size, image)
+    static_path = os.path.join("upload", path, size, image)
     return {"path":static_path, "width":width, "height":height}
 
 def get_images(path, size="small"):
