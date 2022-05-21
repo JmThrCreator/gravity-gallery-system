@@ -7,7 +7,6 @@
         var imageList = {{ images|tojson }};
         // fix dynamic static folder
         var staticFolder = "{{ url_for('static', filename='') }}";
-
     </script>
 
     <script src="{{ url_for('static', filename='js/components/boundary.js') }}"></script>
