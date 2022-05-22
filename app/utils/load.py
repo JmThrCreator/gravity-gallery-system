@@ -81,17 +81,21 @@ def get_size(path):
     width, height = image.size
     return(width, height)
 
-def get_image(image, path, size="small"):
+def get_image(image, path, size="small", static=False):
     full_path = os.path.join(basedir, staticdir, "upload", path, size, image)
     width, height = get_size(full_path)
-    static_path = os.path.join("upload", path, size, image)
+    
+    if static == True:
+        static_path = os.path.join("static", "upload", path, size, image)
+    else:
+        static_path = os.path.join("upload", path, size, image)
     return {"path":static_path, "width":width, "height":height}
 
-def get_images(path, size="small"):
+def get_images(path, size="small", static=False):
     images = []
     for file in os.listdir(os.path.join(basedir, staticdir, "upload", path, size)):
         if file.endswith((".png", ".jpg", ".jpeg", ".PNG", ".JPG", ".JPEG")):
-            images.append(get_image(file, path, size))
+            images.append(get_image(file, path, size, static))
     return images
 
 def get_image_count(path):

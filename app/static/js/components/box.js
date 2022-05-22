@@ -4,7 +4,7 @@ class Box {
             //chamfer: { radius:10 },
             render: {
                 sprite: {
-                    texture: img,
+                    texture: staticFolder + img,
                     xScale: 0.5,
                     yScale: 0.5,
                 }

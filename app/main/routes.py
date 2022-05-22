@@ -74,6 +74,6 @@ def profile():
 	user = User.query.filter_by(username=current_user.username).first()
 	path = user.path_id
 	load_images(path)
-	images = get_images(path, "small")
+	images = get_images(path, "small", static=True)
 
 	return render_template("profile.html", images = images, form=form)

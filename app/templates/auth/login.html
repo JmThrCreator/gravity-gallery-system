@@ -3,49 +3,44 @@
 {% block style %}
 <style>
     body{
-        font-family: 'Roboto', sans-serif;
-        color: white;
+        font-family: 'Bebas Neue', cursive;
     }
     .wrapper {
         position:absolute;
         top:50%;
         left:50%;
         transform:translate(-50%,-50%);
-        border-radius:10px;
-        background-color: #242a33;
-        padding: 25px 40px 25px 25px;
-        max-width: 255px;
+
+        background-color: white;
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+        border-radius: 3px;
+        border: 3px solid rgb(0, 0, 0);
+
+        padding: 25px 25px 25px 25px;
     }
 
 	h2 {
         text-align:center;
-        margin-top:20px;
-        margin-bottom:20px;
-        font-weight:bold;
+        margin-top:10px;
+        margin-bottom:10px;
+        letter-spacing: 1px;
     }
 
 	.string_input input {
-		height:30px;
-        width: 100%;
-	}
+		height:40px;
+        width: 85%;
 
-    input {
-        color: #ffffff;
-        border-radius: 10px;
-        border: 1px solid #9396b5;
-        padding-left: 10px;
-        background-color: #14151f;
-    }
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+        border-radius: 3px;
+        border: 3px solid rgb(0, 0, 0);
 
-    input:hover {
-        filter: brightness(90%);
-    }
-
-    input:focus {
+        font-family: 'Inria Sans', sans-serif;
+        letter-spacing: 1px;
+        height:40px;
         outline: none;
-        border: 1px solid #ccc;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+        padding: 0px 15px 0px 20px;
+        font-size:14px;
+	}
 
     #login_button{
         position:relative;
@@ -55,47 +50,86 @@
     #login_button input {
 		height:35px;
         position:relative;
-        border-radius:10px; 
-        padding-right:40px; 
-        padding-left:40px; 
+        padding: 0 2vh 0 2vh;
+        padding:none;
+        line-height: 0px;
         border:none;
         bottom:20px;
-        background-color: rgb(61, 165, 129);
+        background-color: #b87be7;
 
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Bebas Neue', cursive;
         font-size:16px;
+
+        letter-spacing: 1px;
+        border-radius: 3px;
+
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+        border: 3px solid rgb(0, 0, 0);
     }
 
     label {
         position:relative;
         bottom:5px;
-    }
-
-    input[type=checkbox] {
-        accent-color: rgb(61, 73, 165);
-        background-color: #14151f;
-    }
-
-    #signup_button{
-        font-family: 'Roboto', sans-serif;
-        position: relative;
-        float: right;
-        font-size:16px;
-        color:white;
-        border: 2px solid #ffffff;
-        border-radius: 10px;
-        padding: 7px;
-        background: none;
-        bottom:1px;
-    }
-
-    #signup_button:hover {
-        cursor: pointer;
-        filter: brightness(80%);
+        letter-spacing: 1px;
     }
 
     .button_input input:hover{
         cursor: pointer;
+        filter: brightness(90%);
+    }
+
+    @media screen and (max-width: 500px){
+        .wrapper {
+            width:70%;
+        }
+    }
+
+    input[type=checkbox] {
+        position: relative;
+        right: 4px;
+        appearance: none;
+        height: 20px;
+        width: 20px;
+        background: white;
+        border: 3px solid #000000;
+        border-radius: 3px;
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+        cursor: pointer;
+    }
+    input[type=checkbox]:checked {
+        background-color: #a0e167;
+    }
+    input[type=checkbox]:after {
+        position:relative;
+        left:2px;
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        content: "\f00c";
+        font-size: 12px;
+        color: white;
+    }
+
+    #remember-me-label {
+        position:relative;
+        letter-spacing: 1px;
+        top:2px;
+    }
+    #signup_button{
+        font-family: 'Bebas Neue', cursive;
+        position: relative;
+        float: right;
+        letter-spacing: 1px;
+        font-size:16px;
+        cursor: pointer;
+        border: 3px solid #000000;
+        border-radius: 3px;
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+        padding: 0 2vh 0 2vh;
+        height:35px;
+        background-color: #8eb8f3;
+    }
+    #signup_button:hover {
+        filter: brightness(80%);
     }
 </style>
 {% endblock %}
@@ -108,7 +142,7 @@
 		<div class = "string_input">
 		<p>
 			{{ form.email.label }}<br>
-			{{ form.email(size=32) }}
+			{{ form.email(size=32)}}
 		</p>
 		<p>
 			{{ form.password.label }}<br>
@@ -116,6 +150,6 @@
 		</p>
 		</div>
         <div class="button_input">
-		    <p id = "remember_me">{{ form.remember_me() }} Remember Me <button type="submit" id="signup_button">Sign up</button></p>
+		    <p id = "remember_me">{{ form.remember_me() }} <label id="remember-me-label">Remember Me</label> <button type="submit" id="signup_button">Sign up</button></p>
 		    <p id = "login_button">{{ form.submit() }}</p>
 {% endblock %}

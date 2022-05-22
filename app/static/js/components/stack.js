@@ -31,12 +31,12 @@ class Gallery {
                 }
             }
 
-            var position
-            if (nx == 1) position=1
-            else if (nx == 2) position=1.25
-            else if (nx == 3) position=2
+            var positionX
+            if (nx == 1) positionX=width/2-w
+            else if (nx == 2) positionX=x+width/5 - w
+            else if (nx == 3) positionX=x
 
-            return Bodies.rectangle(x, y, imageList[ix].width/position, imageList[ix].height/2, options);
+            return Bodies.rectangle(positionX, y, imageList[ix].width/2, imageList[ix].height/2, options);
         });
 
         World.add(world, stack);
