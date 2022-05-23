@@ -4,22 +4,15 @@ class Gallery {
 
         var nx = nx;
 
-        if (width > 750){
-            nx = 3
-        }
-        else if (width <= 750 && width > 400) {
-            nx = 2
-        }
-        else if (width <= 400) {
-            nx = 1
-        }
-
 
         let stack = Composites.stack(x, y, nx, ny, w, h, function(x, y, ix, iy) {
 
             if (iy == 1) ix += 3;
             else if (iy == 2) ix += 6;
 
+
+            if (imageList.length <= ix) return;
+            
             let options = {
                 //chamfer: { radius:10 },
                 render: {
@@ -31,12 +24,11 @@ class Gallery {
                 }
             }
 
-            var positionX
-            if (nx == 1) positionX=width/2-w
-            else if (nx == 2) positionX=x+width/5 - w
-            else if (nx == 3) positionX=x
+            if (width <= 400) {
+                
+            }
 
-            return Bodies.rectangle(positionX, y, imageList[ix].width/2, imageList[ix].height/2, options);
+            return Bodies.rectangle(x, y, imageList[ix].width/2, imageList[ix].height/2, options);
         });
 
         World.add(world, stack);
