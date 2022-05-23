@@ -19,6 +19,11 @@
         padding: 25px 25px 25px 25px;
     }
 
+    a{
+        text-decoration: none;
+        color: black;
+    }
+
 	h2 {
         text-align:center;
         margin-top:10px;
@@ -150,6 +155,6 @@
 		</p>
 		</div>
         <div class="button_input">
-		    <p id = "remember_me">{{ form.remember_me() }} <label id="remember-me-label">Remember Me</label> <button type="submit" id="signup_button">Sign up</button></p>
+		    <p id = "remember_me">{{ form.remember_me() }} <label id="remember-me-label">Remember Me</label><button id="signup_button"><a href="{{ url_for('auth.signup') }}">Sign up</a></button></p>
 		    <p id = "login_button">{{ form.submit() }}</p>
 {% endblock %}

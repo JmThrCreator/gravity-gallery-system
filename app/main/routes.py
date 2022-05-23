@@ -33,9 +33,11 @@ def gallery(user=None):
 	if user is None:
 		return redirect(url_for("main.index"))
 	else:
+		username = user.username
+		print(username)
 		path = user.path_id
 		images = get_images(path, "small")
-		return render_template("gallery.html", images = images)
+		return render_template("gallery.html", images = images, user=username)
 
 @bp.route("/profile", methods=["GET", "POST"])
 @login_required
@@ -54,7 +56,10 @@ def profile():
 			os.remove(os.path.join(basedir, staticdir, "upload", path, "small", filename))
 			os.remove(os.path.join(basedir, staticdir, "upload", path, "large", filename))
 			os.remove(os.path.join(basedir, staticdir, "upload", path, "raw", filename))
+		
+		load_images(path)
 		return redirect(url_for("main.profile"))
+
 	elif form.validate_on_submit():
 		user = current_user
 		path = user.path_id
@@ -73,7 +78,6 @@ def profile():
 
 	user = User.query.filter_by(username=current_user.username).first()
 	path = user.path_id
-	load_images(path)
 	images = get_images(path, "small", static=True)
 
 	return render_template("profile.html", images = images, form=form)

@@ -8,18 +8,21 @@ window.onclick = function(event) {
   if (targetId == "gravity") { 
     let gravityOn = document.getElementById("gravity");
 
-    if (gravityOn.className == "bi bi-arrow-down-circle") {
-        gravityOn.className = "bi bi-slash-circle";
+
+    console.log(gravityOn.children[0].className);
+
+    if (gravityOn.children[0].className == "fa-solid fa-globe") {
+        gravityOn.children[0].className = "far fa-moon";
         engine.gravity.y = 1;
     } 
 
-    else if (gravityOn.className == "bi bi-slash-circle") {
-        gravityOn.className = "bi bi-arrow-down-circle";
+    else if (gravityOn.children[0].className == "far fa-moon") {
+        gravityOn.children[0].className = "fa-solid fa-globe";
         engine.gravity.y = 0;
     }
   }
 
-  else if (targetId == "add-body") {
+  else if (targetId == "add") {
       let random = Math.floor(Math.random() * imageList.length);
       let randomX = Math.floor(Math.random() * (width - 100));
 
@@ -61,7 +64,7 @@ var render = Render.create({
   options:
   {
     wireframes: false,
-    background: '#343e4e',
+    background: '#e1dcd5',
   }
 });
 

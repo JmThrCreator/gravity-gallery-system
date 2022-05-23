@@ -23,6 +23,19 @@
 
 {% block style %}
 <style>
+    body{
+        font-family: 'Bebas Neue', cursive;
+        letter-spacing: 2px;
+    }
+    h1 {
+        font-size: 3vw;
+    }
+    .header {
+        position: absolute;
+        display:flex;
+        padding: 0px;
+        margin-left: 35px;
+    }
     #matter{
         position: absolute;
         bottom:0;
@@ -40,31 +53,79 @@
         display: grid;
         row-gap: 30px;
     }
-    i{
-        font-size: 50px;
-        color: #fff;
-    }
     button{
-        background: transparent;
-        border: none;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        
+        width: 4.5vw;
+        height: 4.5vw;
+
+        font-size: 3vw;
+
+        color:black;
+        background-color: #a0e167; 
+        border-radius: 3px;
+        border: 3px solid black;
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+
+        cursor: pointer;
+    }
+    button:hover{
+        filter: brightness(0.9);
     }
     i:hover {
         cursor: pointer;
         filter: brightness(0.7);
+    }
+    a{
+        text-decoration: none;
+    }
+    #add{
+
+    }
+    @media screen and (max-width: 800px){
+        h1{
+            font-size: 20px;
+        }
+        button{
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+        }
+        .panel{
+            display:flex;
+            left: 50%;
+            transform: translate(-50%,0);
+            bottom:0px;
+            justify-content: center;
+        }
+        .grid{
+            position:relative;
+            display: flex;
+            left: 0px;
+            top: 0px;
+            margin-bottom: 20px;
+            align-items: flex-end;
+        }
+        button{
+            margin: 10px;
+        }
     }
     
 </style>
 {% endblock %}
 
 {% block content %}
+    <div class="header">
+        <h1>{{ user }}</h1>
+    </div>
     <div class="panel">
         <div class="grid">
-            <button><i id="add-body" class="bi bi-plus-circle"></i></button>
-            <button><i id="gravity" class="bi bi-arrow-down-circle"></i></button>
-            <button><i id="clear-bodies" class="bi bi-circle"></i></button>
-            <button><i id="reset-bodies"class="bi bi-dash-circle"></i></button>
-            <a href = "https://www.instagram.com/jmthrcreator/"><button><i id="link" class="bi bi-info-circle"></i></button></a>
-        </div>
-    </div>
+            <button id="add"><i id="add" class="fa-solid fa-plus"></i></button>
+            <button id="gravity"><i id="gravity" class="fa-solid fa-globe"></i></button>
+            <button id="clear"><i id="clear-bodies" class="fa-solid fa-broom"></i></button>
+            <button id = "reset"><i id="reset-bodies"class="fa fa-refresh"></i></button>
+            <a id = "link" href = "https://www.instagram.com/jmthrcreator/"><button><i id="page-link" class="fa-solid fa-link"></i></button></a>
 {% endblock %}
 

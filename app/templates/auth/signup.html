@@ -3,49 +3,44 @@
 {% block style %}
 <style>
     body{
-        font-family: 'Roboto', sans-serif;
-        color: white;
+        font-family: 'Bebas Neue', cursive;
     }
     .wrapper {
         position:absolute;
         top:50%;
         left:50%;
         transform:translate(-50%,-50%);
-        border-radius:10px;
-        background-color: #242a33;
-        padding: 25px 40px 25px 25px;
-        max-width: 255px;
+
+        background-color: white;
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+        border-radius: 3px;
+        border: 3px solid rgb(0, 0, 0);
+
+        padding: 25px 25px 25px 25px;
     }
 
 	h2 {
         text-align:center;
-        margin-top:20px;
-        margin-bottom:20px;
-        font-weight:bold;
+        margin-top:10px;
+        margin-bottom:10px;
+        letter-spacing: 1px;
     }
 
 	.string_input input {
-		height:30px;
-        width: 100%;
-	}
+		height:40px;
+        width: 85%;
 
-    input {
-        color: #ffffff;
-        border-radius: 10px;
-        border: 1px solid #9396b5;
-        padding-left: 10px;
-        background-color: #14151f;
-    }
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+        border-radius: 3px;
+        border: 3px solid rgb(0, 0, 0);
 
-    input:hover {
-        filter: brightness(90%);
-    }
-
-    input:focus {
+        font-family: 'Inria Sans', sans-serif;
+        letter-spacing: 1px;
+        height:40px;
         outline: none;
-        border: 1px solid #ccc;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+        padding: 0px 15px 0px 20px;
+        font-size:14px;
+	}
 
     #signup_button{
         position:relative;
@@ -55,38 +50,39 @@
     #signup_button input {
 		height:35px;
         position:relative;
-        color:white;
-        border-radius:10px; 
-        padding-right:40px; 
-        padding-left:40px; 
+        padding: 0 2vh 0 2vh;
+        padding:none;
+        line-height: 0px;
         border:none;
         bottom:20px;
-        background-color: rgb(61, 165, 129);
+        background-color: #8eb8f3;
 
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Bebas Neue', cursive;
         font-size:16px;
+
+        letter-spacing: 1px;
+        border-radius: 3px;
+
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+        border: 3px solid rgb(0, 0, 0);
+        cursor: pointer;
     }
+    #signup_button input:hover{
+        filter: brightness(80%);
+    }
+
 
     label {
         position:relative;
         bottom:5px;
     }
 
-    input[type=checkbox] {
-        accent-color: rgb(61, 73, 165);
-        background-color: #14151f;
+    @media screen and (max-width: 500px){
+        .wrapper {
+            width:70%;
+        }
     }
 
-    #signup_button input:hover{
-        cursor: pointer;
-    }
-
-    span{
-        position: relative;
-        top:5px;
-        color: rgb(236, 95, 73);
-        font-size:15px;
-    }
 
 </style>
 {% endblock %}
@@ -107,7 +103,7 @@
         </p>
         <p>
             {{ form.email.label }}<br>
-            {{ form.email(size=64) }}<br>
+            {{ form.email(size=32) }}<br>
             {% for error in form.email.errors %}
                 <span>{{ error }}</span>
             {% endfor %}

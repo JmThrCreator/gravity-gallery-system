@@ -72,7 +72,7 @@
         align-items: center;
         margin-top:25px;
     }
-    .header button {
+    .header button{
         position: relative;
         margin: 0 1vw 0 1vw;
         border: none;
@@ -105,7 +105,6 @@
     }
     #logout{
         padding: 0 2vh 0 2vh;
-        padding:none;
         line-height: 0px;
         background-color: #b87be7;
     }
@@ -114,6 +113,12 @@
         line-height: 0px;
         background-color: #a0e167;
     }
+    #profile a{
+        border:none;
+        text-decoration: none;
+        color: black;
+    }
+
     #profile:hover{
         cursor: pointer;
         filter: brightness(0.7);
@@ -181,7 +186,7 @@
         .wrapper .search-input{
             border: 2px solid rgb(0, 0, 0);
         }
-        .header button{
+        .header button, .header a{
             border: 2px solid rgb(0, 0, 0);
         }
         .search-input input{
@@ -218,7 +223,7 @@
                 <button id="signup_button" type="submit" name="signup"><h2>Sign Up</h2></button>
             {% else %}
                 <button id="logout" type="submit" name="logout"><h2>Log Out</h2></button>
-                <a id="profile" href="{{ url_for('main.profile') }}"><h2>Edit Page</h2></a>
+                <button id="profile"><h2><a href="{{ url_for('main.profile') }}">Edit Page</a></h2></button>
             {% endif %}
             </div>
         </div>
