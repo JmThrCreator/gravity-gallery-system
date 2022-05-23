@@ -26,6 +26,7 @@
     body{
         font-family: 'Bebas Neue', cursive;
         letter-spacing: 2px;
+        -webkit-tap-highlight-color:  transparent;
     }
     h1 {
         font-size: 3vw;
@@ -42,16 +43,22 @@
         background-color: #343e4e;
     }
     .panel{
-        position: absolute;
-        top:0px;
-        right:0px;
-    }
-    .grid{
         position:absolute;
         right:50px;
         top:50px;
         display: grid;
         row-gap: 30px;
+    }
+    .menu{
+        display: none;
+        position: fixed;
+        display: flex;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .menu button{
+        margin: 10px;
     }
     button{
         display:flex;
@@ -93,23 +100,19 @@
             width: 30px;
             height: 30px;
         }
-        .panel{
-            display:flex;
-            left: 50%;
-            transform: translate(-50%,0);
-            bottom:0px;
-            justify-content: center;
-        }
-        .grid{
-            position:relative;
+        .menu{
             display: flex;
-            left: 0px;
-            top: 0px;
-            margin-bottom: 20px;
-            align-items: flex-end;
         }
-        button{
-            margin: 10px;
+        .panel{
+            display: none;
+        }
+    }
+    @media screen and (min-width: 801px){
+        .menu{
+            display: none;
+        }
+        .panel{
+            display: grid;
         }
     }
     
@@ -121,11 +124,18 @@
         <h1>{{ user }}</h1>
     </div>
     <div class="panel">
-        <div class="grid">
-            <button id="add"><i id="add" class="fa-solid fa-plus"></i></button>
-            <button id="gravity"><i id="gravity" class="fa-solid fa-globe"></i></button>
-            <button id="clear"><i id="clear-bodies" class="fa-solid fa-broom"></i></button>
-            <button id = "reset"><i id="reset-bodies"class="fa fa-refresh"></i></button>
-            <a id = "link" href = "https://www.instagram.com/jmthrcreator/"><button><i id="page-link" class="fa-solid fa-link"></i></button></a>
+        <button id="add"><i id="add" class="fa-solid fa-plus"></i></button>
+        <button id="gravity"><i id="gravity" class="fa-solid fa-globe"></i></button>
+        <button id="clear"><i id="clear-bodies" class="fa-solid fa-broom"></i></button>
+        <button id = "reset"><i id="reset-bodies"class="fa fa-refresh"></i></button>
+        <a id = "link" href = "https://www.instagram.com/jmthrcreator/"><button><i id="page-link" class="fa-solid fa-link"></i></button></a>
+    </div>
+    <div class="menu">
+        <button id="add"><i id="add" class="fa-solid fa-plus"></i></button>
+        <button id="gravity"><i id="gravity" class="fa-solid fa-globe"></i></button>
+        <button id="clear"><i id="clear-bodies" class="fa-solid fa-broom"></i></button>
+        <button id = "reset"><i id="reset-bodies"class="fa fa-refresh"></i></button>
+        <a id = "link" href = "https://www.instagram.com/jmthrcreator/"><button><i id="page-link" class="fa-solid fa-link"></i></button></a>
+    </div>
 {% endblock %}
 
