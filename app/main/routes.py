@@ -4,7 +4,7 @@ from app.utils.load import get_images, load_images, get_image_count
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from app import db
-from app.main.forms import ImageForm
+from app.main.forms import ImageForm, LinkForm
 from werkzeug.utils import secure_filename
 from config import basedir, staticdir
 import os
@@ -34,16 +34,18 @@ def gallery(user=None):
 		return redirect(url_for("main.index"))
 	else:
 		username = user.username
-		print(username)
 		path = user.path_id
 		images = get_images(path, "small")
-		return render_template("gallery.html", images = images, user=username)
+
+		link = user.page_link
+		return render_template("gallery.html", images = images, user=username, link=link)
 
 @bp.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
 	
-	form = ImageForm()
+	imageForm = ImageForm()
+	linkForm = LinkForm()
 
 	if "remove" in request.form:
 		filepath = request.form["remove"]
@@ -60,24 +62,35 @@ def profile():
 		load_images(path)
 		return redirect(url_for("main.profile"))
 
-	elif form.validate_on_submit():
+	elif imageForm.validate_on_submit():
 		user = current_user
 		path = user.path_id
-
 		count = get_image_count(path)
 
 		if count >= 9:
 			return redirect(url_for("main.profile"))
 
-		filename = secure_filename(form.file.data.filename)
-		form.file.data.save(os.path.join(basedir, staticdir, "upload", current_user.path_id, "raw", filename))
-
+		filename = secure_filename(imageForm.file.data.filename)
+		if filename.endswith((".png", ".jpg", ".jpeg", ".PNG", ".JPG", ".JPEG")):
+			imageForm.file.data.save(os.path.join(basedir, staticdir, "upload", current_user.path_id, "raw", filename))
+		else:
+			error = "Invalid file type. Please upload a .png, .jpg, or .jpeg file."
+			images = get_images(path, "small", static=True)
+			link = user.page_link
+			return render_template("profile.html", images = images, imageForm=imageForm, linkForm=linkForm, link=link, error=error)
 
 		load_images(path)
 		return redirect(url_for("main.profile"))
+	
+	elif linkForm.validate_on_submit():
+		user = current_user
+		link = linkForm.link.data
+		user.page_link = link
+		db.session.commit()
 
-	user = User.query.filter_by(username=current_user.username).first()
+	user = current_user
 	path = user.path_id
 	images = get_images(path, "small", static=True)
+	link = user.page_link
 
-	return render_template("profile.html", images = images, form=form)
+	return render_template("profile.html", images = images, imageForm=imageForm, linkForm=linkForm, link=link)

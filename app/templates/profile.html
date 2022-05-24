@@ -13,6 +13,9 @@
     h1{
         font-size: 3vw;
     }
+    h2 {
+        font-size: 2vw;
+    }
     .grid {
         display: grid;
         position: absolute;
@@ -36,8 +39,8 @@
         background-color: transparent;
         border: none;
         position: absolute;
-        right:10px;
-        top:10px;
+        right:6px;
+        top:3px;
 
         color:black;
         background-color: rgb(207, 93, 93);
@@ -60,39 +63,55 @@
     }
     .header{
         display:flex;
-        justify-content: center;
         align-items: center;
-        margin-top:50px;
+        margin-top:25px;
     }
     .header button {
-        position:absolute;
+        position:relative;
         background-color: transparent;
         border: none;
 
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Bebas Neue', cursive;
         font-size:15px;
+        border-radius: 3px;
+        border: 3px solid black;
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+
+        margin: 0 1vw 0 1vw;
+    }
+    .button-group {
+        display: flex;
+        margin-left:auto;
     }
     #add {
-        position: absolute;
-        right:30px;
         display:flex;
         justify-content: center;
         align-items: center;
 
-        width: 4.5vw;
-        height: 4.5vw;
-
         font-size: 3vw;
 
-        color:black;
         background-color: #a0e167; 
-        border-radius: 3px;
-        border: 3px solid black;
-        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+
     }
-    #add:hover{
+    button:hover{
         cursor: pointer;
         filter: brightness(0.9);
+    }
+    #edit-link{
+        letter-spacing: 1px;
+        padding: 0 2vh 0 2vh;
+        padding:none;
+        line-height: 0px;
+        background-color: #b87be7;
+    }
+    #home {
+        background-color: #7bafe7;
+        width: 4vw
+    }
+    #home a{
+        font-size: 2vw;
+        text-decoration: none;
+        color: black;
     }
     .popup{
         display:none;
@@ -130,6 +149,7 @@
         padding: 0 2vh 0 2vh;
         height:35px;
         background-color: #b87be7;
+        font-weight: bold;
     }
     .image_upload{
         font-family: 'Inria Sans', sans-serif;
@@ -152,8 +172,27 @@
         height:35px;
         background-color: #8eb8f3;
         margin-right: 20px;
+        font-weight: bold;
     }
-    #clear{
+
+    .link-field {
+        background-color: white;
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+        border-radius: 3px;
+        border: 3px solid rgb(0, 0, 0);
+
+        width: 400px;
+        font-family: 'Inria Sans', sans-serif;
+        letter-spacing: 1px;
+        height:30px;
+        padding: 0px 15px 0px 20px;
+        font-size:16px;
+
+    }
+    .link-field:focus{
+        outline: none;
+    }
+    #clear {
         position: absolute;
 
         top:15px;
@@ -173,19 +212,38 @@
         border: 3px solid black;
         box-shadow: 3px 3px 0px rgba(0,0,0,1);
     }
-    #clear:hover{
+    #clear :hover{
         filter: brightness(0.7);
     }
+    
     
     @media screen and (max-width: 800px){
         
         h1 {
             font-size: 20px;
         }
+        .header button{
+            height: 30px;
+        }
         #add{
             font-size: 20px;
             width: 30px;
-            height: 30px;
+        }
+        #home {
+            display:flex;
+            justify-content: center;
+            align-items: center;
+
+            background-color: #7bafe7;
+            width: 30px;
+        }
+        #home a{
+            font-size: 15px;
+            text-decoration: none;
+            color: black;
+        }
+        h2 {
+            font-size: 15px;
         }
         .container button{
             font-size: 20px;
@@ -198,16 +256,58 @@
             height: 30px;
         }
     }
+    @media screen and (max-width: 600px){
+        .grid{
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .container{
+            position: relative;
+            width: 30vw;
+            display: inline-block;
+            margin: 1vw 2vw 1vw 2vw;
+        }
+        .container img{
+            width: 30vw;
+        }
+        .popup{
+            width:70%;
+        }
+        .link-field{
+            width:50vw;
+        }
+        .image_upload{
+            position:absolute;
+            left:1vw;
+            width: 70vw;
+        }
+        .image_upload::-webkit-file-upload-button{
+            height: 30px;
+            font-size: 15px;
+        }
+        .sumbit{
+            height: 30px;
+            font-size: 15px;
+            margin-right: 0px;
+        }
+        #popup-add .sumbit{
+            margin-top:20px;
+        }
+    }
 
 </style>
 {% endblock %}
 
 {% block content %}
 <form action="" method="post" enctype="multipart/form-data" novalidate>
-    {{ form.hidden_tag() }}
+    {{ imageForm.hidden_tag() }}
+    {{ linkForm.hidden_tag() }}
     <div class="header">
         <h1 style="position:absolute; left:30px">Edit Gallery</h1>
-        <button type=button id="add" onclick="showPopup()"><i class="fa-solid fa-plus"></i></button>
+        <div class="button-group">
+            <button type=button id="add" onclick="showPopup(this.id)"><i class="fa-solid fa-plus"></i></button>
+            <button type=button id="edit-link" onclick="showPopup(this.id)"><h2>Edit Link</h2></button> 
+            <button type=button id="home" onclick=""><a href = "{{ url_for('main.index') }}"><i class="fa-solid fa-house"></i></a></button>
+        </div>
     </div>
     <div class="grid">
         {% for image in images %}
@@ -217,11 +317,19 @@
         </div>
         {% endfor %}
     </div>
-    <div id="popup" class="popup">
-        <button type=button id="clear" onclick="clearPopup()"><i class="fa-solid fa-remove"></i></button>
+    <div id="popup-add" class="popup">
+        <button type=button id="clear" onclick="clearPopup(this.id)"><i class="fa-solid fa-remove"></i></button>
         <h2>Upload Image</h2>
-        <p>{{ form.file(class="image_upload") }}</p>
-        <p>{{ form.submit(class="sumbit") }}</p>
+        <p>{{ imageForm.file(class="image_upload") }}</p>
+        <p>{{ imageForm.submit(class="sumbit") }}</p>
     </div>
+
+    <div id="popup-edit-link" class="popup">
+        <button type=button id="clear" onclick="clearPopup(this.id)"><i class="fa-solid fa-remove"></i></button>
+        <h2>Edit Link</h2>
+        <p>{{ linkForm.link(class="link-field", value=link) }}</p>
+        <p>{{ linkForm.submit(class="sumbit") }}</p>
+    </div>
+
 </form>
 {% endblock %}

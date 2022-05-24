@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
 {% block script %}
+    <script rel="javascript" type="text/javascript" src="{{ url_for('static', filename='js/libraries/matter.js') }}"></script> <!-- Matter.js -->
+
+    <script src="{{ url_for('static', filename='js/components/wireframe.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/components/boundary.js') }}"></script>
+
     <script rel="javascript" type="text/javascript" src="static/js/index.js"></script>
+
     <script>
         let suggestions = {{ usernames|tojson }};
 
@@ -57,7 +63,6 @@
 <style>
     body{
         font-family: 'Bebas Neue', cursive;
-        color: rgb(0, 0, 0);
         letter-spacing: 2px;
     }
     h1 {
@@ -137,11 +142,33 @@
     }
     
     .wrapper {
+        display: flex;
         position: absolute;
         top: 250px;
         left: 50%;
         transform: translate(-50%, -0);
     }   
+    #help-button{
+        position: relative;
+        margin: 0 1vw 0 2vw;
+        border: none;
+
+        font-family: 'Bebas Neue', cursive;
+        letter-spacing: 2px;
+        border-radius: 3px;
+
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+        border: 3px solid rgb(0, 0, 0);
+
+        padding: 0 2vh 0 2vh;
+        padding:none;
+        line-height: 0px;
+        background-color: #8eb8f3;
+    }
+    #help-button:hover{
+        cursor: pointer;
+        filter: brightness(0.9);
+    }
     .wrapper .search-input{
         background-color: white;
         box-shadow: 3px 3px 0px rgba(0,0,0,1);
@@ -183,12 +210,6 @@
         .wrapper{
             max-width: 75%;
         }
-        .wrapper .search-input{
-            border: 2px solid rgb(0, 0, 0);
-        }
-        .header button, .header a{
-            border: 2px solid rgb(0, 0, 0);
-        }
         .search-input input{
             width: 120px;
         }
@@ -200,12 +221,17 @@
         }
         .search-input input{
             font-size:14px;
-            width: 250px;
+            width: 230px;
             height: 35px;
             padding: 0px 0px 0px 20px;
         }
         .autocom-box {
             font-size:14px;
+        }
+    }
+    @media screen and (min-width: 801px){
+        #help-button{
+            width:4.5vw;
         }
     }
 
@@ -232,6 +258,7 @@
                 <input type="text" id="search-input" name="search" placeholder="Search" autocomplete="off">
                 <div class="autocom-box"></div>
             </div>
+            <button id="help-button" type="button" name="help"><h1>?</h1></button>
         </div>
 {% endblock %}
 

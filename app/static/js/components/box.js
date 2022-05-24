@@ -6,7 +6,7 @@ class Box {
         var widthMultiplier
         if (width < 800) scale = 0.25, widthMultiplier = 2;
         else scale = 0.5, widthMultiplier = 1;
-
+        
         let options = {
             //chamfer: { radius:10 },
             render: {

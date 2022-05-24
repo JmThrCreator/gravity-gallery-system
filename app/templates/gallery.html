@@ -32,10 +32,13 @@
         font-size: 3vw;
     }
     .header {
+        top:15px;
         position: absolute;
         display:flex;
         padding: 0px;
-        margin-left: 35px;
+        margin-left: 30px;
+        pointer-events: none;
+        user-select: none;
     }
     #matter{
         position: absolute;
@@ -88,8 +91,13 @@
     a{
         text-decoration: none;
     }
-    #add{
-
+    #home a{
+        font-size: 2.5vw;
+        text-decoration: none;
+        color: black;
+    }
+    #home {
+        background-color: #7bafe7;
     }
     @media screen and (max-width: 800px){
         h1{
@@ -105,6 +113,9 @@
         }
         .panel{
             display: none;
+        }
+        #home a{
+            font-size: 15px;
         }
     }
     @media screen and (min-width: 801px){
@@ -124,18 +135,20 @@
         <h1>{{ user }}</h1>
     </div>
     <div class="panel">
+        <button type=button id="home" onclick=""><a href = "{{ url_for('main.index') }}"><i class="fa-solid fa-house"></i></a></button>
         <button id="add"><i id="add" class="fa-solid fa-plus"></i></button>
         <button id="gravity"><i id="gravity" class="fa-solid fa-globe"></i></button>
         <button id="clear"><i id="clear-bodies" class="fa-solid fa-broom"></i></button>
         <button id = "reset"><i id="reset-bodies"class="fa fa-refresh"></i></button>
-        <a id = "link" href = "https://www.instagram.com/jmthrcreator/"><button><i id="page-link" class="fa-solid fa-link"></i></button></a>
+        <a id = "link" href = {{link}}><button><i id="page-link" class="fa-solid fa-link"></i></button></a>
     </div>
     <div class="menu">
+        <button type=button id="home" onclick=""><a href = "{{ url_for('main.index') }}"><i class="fa-solid fa-house"></i></a></button>
         <button id="add"><i id="add" class="fa-solid fa-plus"></i></button>
         <button id="gravity"><i id="gravity" class="fa-solid fa-globe"></i></button>
         <button id="clear"><i id="clear-bodies" class="fa-solid fa-broom"></i></button>
         <button id = "reset"><i id="reset-bodies"class="fa fa-refresh"></i></button>
-        <a id = "link" href = "https://www.instagram.com/jmthrcreator/"><button><i id="page-link" class="fa-solid fa-link"></i></button></a>
+        <a id = "link" href = {{link}}><button><i id="page-link" class="fa-solid fa-link"></i></button></a>
     </div>
 {% endblock %}
 

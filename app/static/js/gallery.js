@@ -51,6 +51,8 @@ var Engine = Matter.Engine,
 var width = window.innerWidth, 
   height = window.innerHeight;
 
+var mouseTimer = 0;
+
 // engine
 var engine = Engine.create(),
   world = engine.world;
@@ -103,10 +105,16 @@ Matter.Events.on(engine.world, "afterAdd", function() {
 
 // Create boundaires
 function createBoundaires() {
-  new Boundary(width/2,height,width,40); // bottom
   new Boundary(width/2,0,width,40); // top
   new Boundary(0,height/2,40,height); // left
-  new Boundary(width,height/2,40,height); // right
+  if (width <= 800) {
+    new Boundary(width,height/2,40,height); // right
+    new Boundary(width/2,height,width,300); // bottom
+  }
+  else {
+    new Boundary(width,height/2,250,height); // right
+    new Boundary(width/2,height,width,40); // bottom
+  }
 }
 
 // EVENTS
@@ -139,9 +147,27 @@ Matter.Events.on(mouseConstraint, 'mousemove', function (event) {
   document.body.style.cursor = cursor;
 });
 
-// Double click; Create background image
-document.addEventListener('dblclick', function(event) {
-  if (event.target.id != "") return; // html button
+
+// Double tap
+Matter.Events.on(mouseConstraint, 'mousedown', function (event) {
+  mouseTimer++;
+
+  setTimeout(function() {
+    if (mouseTimer == 1) {
+      mouseTimer = 0;
+     
+    }
+    else {
+      mouseTimer = 0;
+      doubleClick(event);
+    }
+  }, 300);
+})
+
+
+
+// Double tap; Create background image
+function doubleClick(event) {
 
   let pos = mouse.position;
   let bodies = Matter.Composite.allBodies(engine.world);
@@ -182,7 +208,7 @@ document.addEventListener('dblclick', function(event) {
   let body_height = body.bounds.max.y - body.bounds.min.y;
 
   new Background(largeTexture, width/2, height/2, body_width, body_height);
-})
+}
 
 // Clear all bodies
 function clearBodies() {

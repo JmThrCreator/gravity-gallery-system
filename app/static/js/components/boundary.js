@@ -3,6 +3,9 @@ class Boundary {
         let options = {
             isStatic: true,
             //visibility
+            collisionFilter: {
+                'category': 2,
+            },
             render: {
                 visible: false
             },

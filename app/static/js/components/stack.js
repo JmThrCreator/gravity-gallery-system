@@ -11,8 +11,7 @@ class Gallery {
 
             if (imageList.length <= ix) return;
 
-            console.log(width*0.001, imageList[ix].width)
-            
+
             var scale
             var widthMultiplier
             if (width < 800) scale = 0.25, widthMultiplier = 4;
@@ -21,6 +20,7 @@ class Gallery {
             let options = {
                 //chamfer: { radius:10 },
                 render: {
+                    chamfer: { radius:3 },
                     sprite: {
                         texture: staticFolder + imageList[ix].path,
                         xScale: scale,
