@@ -193,6 +193,13 @@
     #signup_button:hover {
         filter: brightness(80%);
     }
+    
+    span {
+        position:relative;
+        top:10px;
+        left:5px;
+        color: rgb(207, 93, 93);
+    }
 </style>
 {% endblock %}
 
@@ -210,10 +217,16 @@
 		<p>
 			{{ form.email.label }}<br>
 			{{ form.email(size=32)}}
+            {% for error in form.email.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
 		</p>
 		<p>
 			{{ form.password.label }}<br>
 			{{ form.password(size=32) }}
+            {% for error in form.password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
 		</p>
 		</div>
         <div class="button_input">

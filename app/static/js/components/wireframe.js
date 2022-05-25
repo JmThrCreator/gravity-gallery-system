@@ -9,6 +9,9 @@ class Wireframe {
         
         let options = {
             chamfer: { radius:3 },
+            collisionFilter: {
+                'category': 3,
+            },
             render: {
                 fillStyle: color,
                 strokeStyle: 'black',

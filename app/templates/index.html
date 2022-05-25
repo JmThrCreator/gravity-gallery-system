@@ -7,6 +7,7 @@
     <script src="{{ url_for('static', filename='js/components/boundary.js') }}"></script>
 
     <script rel="javascript" type="text/javascript" src="static/js/index.js"></script>
+    <script rel="javascript" type="text/javascript" src="static/js/popup.js"></script>
 
     <script>
         let suggestions = {{ usernames|tojson }};
@@ -148,7 +149,9 @@
         left: 50%;
         transform: translate(-50%, -0);
     }   
-    #help-button{
+    #help{
+
+        flex-shrink: 0;
         position: relative;
         display:flex;
         justify-content: center;
@@ -156,20 +159,21 @@
 
         margin: 0 1vw 0 1vw;
         font-family: 'Bebas Neue', cursive;
-        letter-spacing: 2px;
+
         border-radius: 3px;
 
         box-shadow: 3px 3px 0px rgba(0,0,0,1);
         border: 3px solid rgb(0, 0, 0);
 
-        line-height: 0px;
+
         width: 50px;
+        height: 45px;
         background-color: #8eb8f3;
 
         font-size: 30px;
         
     }
-    #help-button:hover{
+    #help:hover{
         cursor: pointer;
         filter: brightness(0.9);
     }
@@ -209,14 +213,72 @@
         color: black;
     }
 
+    .popup{
+        display:none;
+
+        padding: 25px 40px 25px 25px;
+        width: 500px;
+        height: 300px;
+
+        flex-direction: column;
+        justify-content: top;
+        align-items: center;
+
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+
+        background-color: white;
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+        border-radius: 3px;
+        border: 3px solid rgb(0, 0, 0);
+
+        padding: 25px 25px 25px 25px;
+    }
+
+    .popup h2{
+        text-align: center;
+    }
+
+    .popup p {
+        font-family: 'Inria Sans', sans-serif;
+    }
+
+    #clear {
+        position: absolute;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        top:15px;
+        right:15px;
+
+        cursor:pointer;
+
+        width: 30px;
+        height: 30px;
+
+        font-size: 20px;
+
+        color:black;
+        background-color: rgb(207, 93, 93);
+        border-radius: 3px;
+        border: 3px solid black;
+        box-shadow: 3px 3px 0px rgba(0,0,0,1);
+    }
+    #clear :hover{
+        filter: brightness(0.7);
+    }
+    
+
     @media screen and (max-width: 800px){
         
         .wrapper{
             max-width: 75%;
         }
-        .search-input input{
-            width: 120px;
-        }
+
         h1 {
             font-size: 20px;
         }
@@ -232,11 +294,30 @@
         .autocom-box {
             font-size:14px;
         }
-        #help-button{
+        #help{
             left: 10px;
             font-size: 23px;
+            width: 45px;
+            height: 40px;
+        }
+        #clear {
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
         }
     }
+
+    @media screen and (max-width: 600px){
+        .popup{
+            width:70%;
+        }
+    }
+    @media screen and (max-width: 600px){
+        .wrapper{
+            padding-right:30px;
+        }
+    }
+
 
 
 </style>
@@ -261,7 +342,12 @@
                 <input type="text" id="search-input" name="search" placeholder="Search" autocomplete="off">
                 <div class="autocom-box"></div>
             </div>
-            <button id="help-button" type="button" name="help"><i class="fa-solid fa-question"></i></button>
+            <button id="help" type="button" name="help" onclick="showPopup(this.id)"><i class="fa-solid fa-question"></i></button>
+        </div>
+        <div id="popup-help" class="popup">
+            <button type=button id="clear" onclick="clearPopup()"><i class="fa-solid fa-remove"></i></button>
+            <h2>Help</h2>
+            <p>An interactive art and photo gallery. Throw the images around the screen and try out all the buttons! If you want to expand a picture, double tap it! <br><br> For an example, search for 'jmthrcreator'. If you want to create a gallery, create an account and upload your images.</p>
         </div>
 {% endblock %}
 

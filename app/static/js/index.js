@@ -110,3 +110,20 @@ function removeBoundaries() {
         }
     }
 }
+
+// Mouse over image; change cursor
+Matter.Events.on(mouseConstraint, 'mousemove', function (event) {
+  let mousePosition = event.mouse.position;
+  let bodies = Matter.Composite.allBodies(engine.world);
+  let foundPhysics = Matter.Query.point(bodies, mousePosition);
+  let cursor = ""
+
+  for (let i = 0; i < foundPhysics.length; i++) {
+    let element = foundPhysics[i];
+
+    if (element.collisionFilter.category == 3) cursor = "pointer"
+    else cursor = "default"
+  }
+
+  document.body.style.cursor = cursor;
+});
